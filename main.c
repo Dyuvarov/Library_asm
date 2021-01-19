@@ -186,12 +186,18 @@ void	call_strdup(char *str)
 {
 	char	*r_res;
 	char	*w_res;
+	int		err1;
+	int		err2;
 
 	r_res = strdup(str);
+	err1 = errno;
 	w_res = ft_strdup(str);
+	err2 = errno;
 
 	printf("str: |%s|\n", str);
-	if (strcmp(r_res, w_res) != 0)
+	if (errno == 12)
+		perror("Error: ");
+	else if (strcmp(r_res, w_res) != 0)
 		printf("-wrong- expected |%s| instead of |%s|\n", r_res, w_res);
 	else
 		printf("+correct+\n");
